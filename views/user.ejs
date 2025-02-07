@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel użytkownika</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Witaj, <%= user.username %>!</h1>
+    <a href="/logout">Wyloguj się</a>
+    
+    <h2>Produkty:</h2>
+    <ul>
+        <% products.forEach(product => { %>
+            <li>
+                <%= product.name %> - <%= product.price %> PLN
+                <form action="/cart/add" method="POST">
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+                    <button type="submit">Dodaj do koszyka</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+
+    <h2>Koszyk</h2>
+    <ul>
+        <% cart.forEach(item => { %>
+            <li><%= item.name %> - <%= item.price %> PLN</li>
+        <% }); %>
+    </ul>
+    <form action="/checkout" method="POST">
+        <button type="submit">Złóż zamówienie</button>
+    </form>
+</body>
+</html>
