@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel administratora</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Panel administratora</h1>
+    <a href="/logout">Wyloguj się</a>
+
+    <h2>Dodaj nowy produkt</h2>
+    <form action="/admin/products/add" method="POST">
+        <input type="text" name="name" placeholder="Nazwa produktu" required>
+        <input type="number" name="price" placeholder="Cena" required>
+        <button type="submit">Dodaj</button>
+    </form>
+
+    <h2>Lista produktów</h2>
+    <ul>
+        <% products.forEach(product => { %>
+            <li>
+                <%= product.name %> - <%= product.price %> PLN
+                <form action="/admin/products/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+                    <button type="submit">Usuń</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+
+    <h2>Lista użytkowników</h2>
+    <ul>
+        <% users.forEach(user => { %>
+            <li><%= user.username %></li>
+        <% }); %>
+    </ul>
+
+    <h2>Zamówienia</h2>
+    <ul>
+        <% orders.forEach(order => { %>
+            <li>Zamówienie #<%= order.id %> - Status: <%= order.status %></li>
+        <% }); %>
+    </ul>
+</body>
+</html>
