@@ -1,31 +1,35 @@
 const express = require("express");
+const pool = require("../db/db");
+
 const router = express.Router();
-
-
-//tymchasowa baza danych 
-const users = [
-    { username: "admin", password: "pitbull", role: "admin" },
-    { username: "user", password: "jusser", role: "user" }
-];
 
 router.get("/login", (req, res) => {
     res.render("login", { error: null });
 });
 
-router.post("/login", (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
 
-    if (!user) {
-        return res.render("login", { error: "Nieprawidłowy login lub hasło" });
-    }
+    try {
+        console.log("Email from form:", email);
+        const userResult = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+        if (userResult.rows.length === 0) {
+            return res.render("login", { error: `Nieprawidłowy login lub hasło` });
+        }
 
-    req.session.user = { username: user.username, role: user.role };
+        const user = userResult.rows[0];
 
-    if (user.role === "admin") {
-        return res.redirect("/admin");
-    } else {
-        return res.redirect("/user");
+        req.session.user = { id: user.id, email: user.email, role: user.is_admin ? "admin" : "user" };
+
+        if (user.is_admin) {
+            return res.redirect("/admin");
+        } else {
+            return res.redirect("/user");
+        }
+
+    } catch (err) {
+        console.error(err);
+        res.render("login", { error: "server err" });
     }
 });
 

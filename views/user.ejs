@@ -15,7 +15,7 @@
         <% products.forEach(product => { %>
             <li>
                 <%= product.name %> - <%= product.price %> PLN
-                <form action="/cart/add" method="POST">
+                <form action="/user/cart/add" method="POST">
                     <input type="hidden" name="productId" value="<%= product.id %>">
                     <button type="submit">Dodaj do koszyka</button>
                 </form>
