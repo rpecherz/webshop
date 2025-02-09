@@ -16,7 +16,7 @@ router.post("/login", async (req, res) => {
         if (userResult.rows.length === 0) {
             return res.render("login", { error: `Nieprawidłowy login lub hasło` });
         }
-        if(userResult.password !== password)
+        if(userResult.rows[0].password !== password)
         {
             return res.send(`
                 <script>
