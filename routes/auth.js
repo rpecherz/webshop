@@ -16,6 +16,15 @@ router.post("/login", async (req, res) => {
         if (userResult.rows.length === 0) {
             return res.render("login", { error: `Nieprawidłowy login lub hasło` });
         }
+        if(userResult.password !== password)
+        {
+            return res.send(`
+                <script>
+                    alert("Zly email bądź hasło!");
+                    window.location.href = "/login";
+                </script>
+            `);
+        }
 
         const user = userResult.rows[0];
 

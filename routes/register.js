@@ -20,14 +20,14 @@ router.post("/", async (req, res) => {
     {
         const existingUser = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
         if (existingUser.rows.length > 0) {
-            return res.render("register", { error: "Użytkownik już istnieje!" });
+            return res.render("register", { error: "zły email lub hasło!" });
         }
         const salt = crypto.randomBytes(16).toString("hex");
         const hashedPassword = crypto.pbkdf2Sync(password, salt, 100000, 64, "sha256").toString("hex");
 
         await pool.query("INSERT INTO users (email, password, is_admin) VALUES ($1, $2, $3)", [
             email,
-            `${salt}:${hashedPassword}`, 
+            password, 
             false
         ]);
 
