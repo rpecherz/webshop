@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podsumowanie zamówienia</title>
+    <style>
+        body {
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #222;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .total {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #be53fc;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.2s ease-in-out;
+        }
+
+        button:hover 
+        {
+            background-color: #9a35d3; 
+            transform: scale(1.1); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Twoje zamówienie</h2>
+
+        <% if (cart.length > 0) { %>
+            <ul>
+                <% cart.forEach(item => { %>
+                    <li>
+                        <%= item.name %> - <%= item.quantity %> x <%= item.price %> PLN
+                        <form action="/user/cart/remove/<%= item.product_id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="button">Usuń</button>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul>
+        
+            <p class="total">Łączna kwota: <%= total %> PLN</p>
+            <p>stylowo brachu</p>
+        
+            <form action="/user/cart/clear" method="POST">
+                <button type="submit" class="button">Wyczyść koszyk</button>
+            </form>
+        <% } else { %>
+            <p>Twój koszyk jest pusty ...</p>
+        <% } %>
+        
+
+        <a href="/user" class="button">Back to main site</a>
+    </div>
+</body>
+</html>

@@ -51,14 +51,15 @@ router.post("/products/add", [
 });
 
 router.post("/products/delete", async (req, res) => {
-    const { Id } = req.body;
+    const { productId } = req.body;
+    console.log(productId);
 
-    if (!Id) {
+    if (!productId) {
         return res.status(400).send("nie ma takiego ciuszka");
     }
 
     try {
-        await db.query("DELETE FROM products WHERE id = $1", [Id]);
+        await db.query("DELETE FROM products WHERE id = $1", [productId]);
         res.redirect("/admin");
     } catch (err) {
         console.error("error deleting ciuszek", err.stack);

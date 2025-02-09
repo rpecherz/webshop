@@ -32,6 +32,54 @@
             color: #be53fc;
         }
 
+        .product-grid 
+        {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .product-card 
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product-card img 
+        {
+            max-width: 80%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+
+        button 
+        {
+        background-color: #be53fc; 
+        color: white; 
+        font-size: 18px; 
+        padding: 10px 20px; 
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+        }
+
+        button:hover 
+        {
+        background-color: #9a35d3; 
+        transform: scale(1.1); 
+        }
     </style>
 </head>
 <body>
@@ -45,12 +93,15 @@
         <a href="/register">REJESTRACJA</a>
     </div>
 
-    <h2>PRODUKTY</h2>
-    <ul>
+    <h2>Produkty:</h2>
+    <div class="product-grid">
         <% products.forEach(product => { %>
-            <li><%= product.name %> - <%= product.price %> PLN</li>
+            <img src="<%= product.image_url %>" alt="<%= product.name %>">
+            <div class="product-card">
+                <p><%= product.name %> - <%= product.price %> PLN</p>
+            </div>
         <% }); %>
-    </ul>
+    </div>
 
 </body>
 </html>

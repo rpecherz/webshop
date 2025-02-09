@@ -4,24 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel użytkownika</title>
-    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #333;
+        }
+
+        img{
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        a{
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+            transition: 0.2s ease-in-out;
+        }
+
+        a:hover{
+            transform: scale(1.2);
+            color: #be53fc;
+        }
+        .logout-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .logout-container a {
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+            background-color: #be53fc;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .logout-container a:hover {
+            background-color: #be73fc;
+            transform: scale(1.1);
+            color: white;
+        }
+
+
+        .product-grid 
+        {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .product-card 
+        {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .product-card img 
+        {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button 
+        {
+        background-color: #be53fc; 
+        color: white; 
+        font-size: 18px; 
+        padding: 10px 20px; 
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+        }
+
+        button:hover 
+        {
+        background-color: #9a35d3; 
+        transform: scale(1.1); 
+        }
+        
+
+    </style>
 </head>
 <body>
+    <div>
+        <img src="/images/starting-page.jpg" alt="obraz startowy">
+    </div>
+
     <h1>Witaj, <%= user.username %>!</h1>
-    <a href="/logout">Wyloguj się</a>
     
     <h2>Produkty:</h2>
-    <ul>
+    <div class="product-grid">
         <% products.forEach(product => { %>
-            <li>
-                <%= product.name %> - <%= product.price %> PLN
+            <div class="product-card">
+                <img src="<%= product.image_url %>" alt="<%= product.name %>">
+                <p><%= product.name %> - <%= product.price %> PLN</p>
                 <form action="/user/cart/add" method="POST">
                     <input type="hidden" name="productId" value="<%= product.id %>">
                     <button type="submit">Dodaj do koszyka</button>
                 </form>
-            </li>
+            </div>
         <% }); %>
-    </ul>
+    </div>
+
 
     <h2>Koszyk</h2>
     <ul>
@@ -29,8 +130,14 @@
             <li><%= item.name %> - <%= item.price %> PLN</li>
         <% }); %>
     </ul>
-    <form action="/checkout" method="POST">
+    <form action="/user/checkout" method="POST">
         <button type="submit">Złóż zamówienie</button>
     </form>
+
+
+    <div class="logout-container">
+        <a href="/logout">Wyloguj się</a>
+    </div>
+    
 </body>
 </html>

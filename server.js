@@ -40,7 +40,6 @@ app.get("/", async (req, res) => {
 app.use(authRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
-
 app.use("/register", registerRoutes);
 
 const PORT = 3000;
