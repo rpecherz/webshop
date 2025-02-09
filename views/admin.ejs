@@ -14,8 +14,10 @@
     <form action="/admin/products/add" method="POST">
         <input type="text" name="name" placeholder="Nazwa produktu" required>
         <input type="number" name="price" placeholder="Cena" required>
+        <input type="text" name="image_url" placeholder="URL obrazka" required>
         <button type="submit">Dodaj</button>
     </form>
+    
 
     <h2>Lista produktów</h2>
     <ul>
@@ -39,7 +41,7 @@
 
     <h2>Zamówienia</h2>
     <ul>
-        <% orders.forEach(order => { %>
+        <% carts.forEach(order => { %>
             <li>Zamówienie #<%= order.id %> - Status: <%= order.status %></li>
         <% }); %>
     </ul>
