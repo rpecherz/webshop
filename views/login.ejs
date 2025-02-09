@@ -4,22 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie</title>
-    <link rel="stylesheet" href="/styles.css">
+    
+    <style>
+        body{
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+
+        img{
+            max-width: 30%;
+            height: auto;
+            margin-bottom: 20px;
+            transition: 0.2s ease-in-out;
+        }
+        img:hover{
+            filter: brightness(1.8);
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        input{
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+
+        button{
+            width: 100%;
+            padding: 18px;
+            margin-top: 15px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            transition: 0.1s ease-in-out;
+        }
+
+        button:hover{
+            transform: scale(1.1);
+            background-color: #bc9530;
+        }
+
+        p{
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Zaloguj się</h1>
+    <div>
+        <img src="/images/login-1.jpg" alt="obraz startowy">
     
-    <% if (error) { %>
-        <p style="color: red;"><%= error %></p>
-    <% } %>
+        <% if (error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
 
     <form action="/login" method="POST">
         <input type="email" name="email" required>
         <input type="password" name="password" required>
         <button type="submit">Zaloguj</button>
     </form>
-    
 
-    <p>Nie masz konta? <a href="/register">Zarejestruj się</a></p>
+        <p>Nie masz konta? <a href="/register">Zarejestruj się</a></p>
+    </div>
 </body>
 </html>
