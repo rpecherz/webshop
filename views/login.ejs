@@ -77,7 +77,9 @@
         <% } %>
 
     <form action="/login" method="POST">
-        <input type="email" name="email" required>
+        <label for="username">Nazwa użytkownika:</label>
+        <input id="username" type="email" name="email" required>
+        <label for="password">Hasło:</label>
         <input type="password" name="password" required>
         <button type="submit">Zaloguj</button>
     </form>
