@@ -1,107 +1,122 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Szafcia Rafcia</title>
-    
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            text-align: center;
-            color: #333;
-        }
-
-        img{
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        a{
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #333;
-            margin: 0 10px;
-            transition: 0.2s ease-in-out;
-        }
-
-        a:hover{
-            transform: scale(1.2);
-            color: #be53fc;
-        }
-
-        .product-grid 
-        {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            justify-content: center;
-        }
-
-        .product-card 
-        {
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            background-color: #f9f9f9;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .product-card img 
-        {
-            max-width: 80%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-
-        button 
-        {
-        background-color: #be53fc; 
-        color: white; 
-        font-size: 18px; 
-        padding: 10px 20px; 
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-        }
-
-        button:hover 
-        {
-        background-color: #9a35d3; 
-        transform: scale(1.1); 
-        }
-    </style>
-</head>
-<body>
-
-    <div>
-        <img src="/images/starting-page.jpg" alt="obraz startowy">
-    </div>
-
-    <div>
-        <a href="/login">LOGOWANIE</a> | 
-        <a href="/register">REJESTRACJA</a>
-    </div>
-
-    <h2>Produkty:</h2>
-    <div class="product-grid">
-        <% products.forEach(product => { %>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Szafcia Rafcia</title>
+      <style>
+         body {
+         font-family: Arial, sans-serif;
+         text-align: center;
+         color: #333;
+         }
+         img {
+         max-width: 100%;
+         height: auto;
+         margin-bottom: 20px;
+         }
+         a {
+         font-size: 20px;
+         font-weight: bold;
+         text-decoration: none;
+         color: #333;
+         margin: 0 10px;
+         transition: 0.2s ease-in-out;
+         }
+         a:hover {
+         transform: scale(1.2);
+         color: #be53fc;
+         }
+         .product-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: 20px;
+         padding: 20px;
+         justify-content: center;
+         }
+         .product-card {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         border: 1px solid #ddd;
+         border-radius: 10px;
+         padding: 15px;
+         text-align: center;
+         background-color: #f9f9f9;
+         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+         }
+         .product-card img {
+         max-width: 80%;
+         height: auto;
+         border-radius: 5px;
+         margin-bottom: 10px;
+         }
+         button {
+         background-color: #be53fc;
+         color: white;
+         font-size: 18px;
+         padding: 10px 20px;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: 0.3s ease-in-out;
+         }
+         button:hover {
+         background-color: #9a35d3;
+         transform: scale(1.1);
+         }
+         .search-container {
+         margin: 20px auto;
+         max-width: 500px;
+         }
+         #searchInput {
+         width: 100%;
+         padding: 10px;
+         font-size: 16px;
+         border: 2px solid #be53fc;
+         border-radius: 5px;
+         outline: none;
+         }
+         #searchInput:focus {
+         box-shadow: 0 0 5px rgba(190, 83, 252, 0.5);
+         }
+      </style>
+   </head>
+   <body>
+      <div>
+         <img src="/images/starting-page.jpg" alt="obraz startowy">
+      </div>
+      <div>
+         <a href="/login">LOGOWANIE</a> |
+         <a href="/register">REJESTRACJA</a>
+      </div>
+      <div class="search-container">
+         <input type="text" id="searchInput" placeholder="Szukaj produktów...">
+      </div>
+      <h2>Produkty:</h2>
+      <div class="product-grid">
+         <% products.forEach(product => { %>
+         <div class="product-card" data-name="<%= product.name.toLowerCase() %>">
             <img src="<%= product.image_url %>" alt="<%= product.name %>">
-            <div class="product-card">
-                <p><%= product.name %> - <%= product.price %> PLN</p>
-            </div>
-        <% }); %>
-    </div>
-
-</body>
+            <p><%= product.name %> - <%= product.price %> PLN</p>
+         </div>
+         <% }); %>
+      </div>
+      <script>
+         document.getElementById('searchInput').addEventListener('input', function(e) {
+             const searchText = e.target.value.toLowerCase();
+             const productCards = document.querySelectorAll('.product-card');
+             
+             productCards.forEach(card => {
+                 const productName = card.getAttribute('data-name');
+                 if (productName.includes(searchText)) {
+                     card.style.display = '';
+                 } else {
+                     card.style.display = 'none';
+                 }
+             });
+         });
+      </script>
+   </body>
 </html>

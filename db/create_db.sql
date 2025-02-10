@@ -19,10 +19,10 @@ CREATE TABLE carts (
     user_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT DEFAULT 1 CHECK (quantity > 0),
+    UNIQUE (user_id, product_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
-
 
 -- Testing data
 

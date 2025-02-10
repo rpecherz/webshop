@@ -13,7 +13,7 @@ function admid(req, res, next) {
 router.get("/", admid, async (req, res) => {
     try {
         const productsResult = db.query("SELECT * FROM products");
-        const usersResult = db.query("SELECT * FROM users");
+        const usersResult = db.query("SELECT * FROM users WHERE is_admin = FALSE");        
         const cartsResult = db.query("SELECT * FROM carts"); 
 
         const [products, users, carts] = await Promise.all([productsResult, usersResult, cartsResult]);
